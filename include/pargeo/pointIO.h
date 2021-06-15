@@ -29,35 +29,30 @@ namespace pargeo {
 
   namespace pointIO {
 
-  // todo don't use using
-  using namespace std;
-  using namespace pargeo::IO;
-
   string pbbsHeader(int dim) {
     if (dim < 2 || dim > 9) {
-      cout << "Error, unsupported dimension " << dim << ", abort." << endl;
-      abort();
+      throw std::runtime_error("Error, unsupported dimension");
     }
-    return "pbbs_sequencePoint" + to_string(dim) + "d";
+    return "pbbs_sequencePoint" + std::to_string(dim) + "d";
   }
 
   bool isGenericHeader(std::string line) {
     for (auto c: line) {
-      if (!is_number(c) && !is_delim(c)) return true;
+      if (!pargeo::IO::is_number(c) && !pargeo::IO::is_delim(c)) return true;
     }
     return false;
   }
 
   int countEntry(std::string line) {
-    while (is_delim(line.back()) ||
-	   is_space(line.back()) ||
-	   is_newline(line.back())) {
+    while (pargeo::IO::is_delim(line.back()) ||
+	   pargeo::IO::is_space(line.back()) ||
+	   pargeo::IO::is_newline(line.back())) {
       line.pop_back();
     }
 
     int count = 0;
     for (auto c: line) {
-      if (is_delim(c)) count ++;
+      if (pargeo::IO::is_delim(c)) count ++;
     }
     return count + 1;
   }
@@ -85,14 +80,14 @@ namespace pargeo {
 
   template <class pointT>
   int writePointsToFile(parlay::sequence<pointT> const &P, char const *fname) {
-    int r = writeSeqToFile("", P, fname);
+    int r = pargeo::IO::writeSeqToFile("", P, fname);
     return r;
   }
 
   template <class pointT>
-  int writePointsToFilePbbs(parlay::sequence<pointT> const &P, char const *fname) {
+ int writePointsToFilePbbs(parlay::sequence<pointT> const &P, char const *fname) {
     string Header = pbbsHeader(pointT::dim);
-    int r = writeSeqToFile(Header, P, fname);
+    int r = pargeo::IO::writeSeqToFile(Header, P, fname);
     return r;
   }
 
@@ -110,8 +105,8 @@ namespace pargeo {
 
   template <class pointT>
   parlay::sequence<pointT> readPointsFromFile(char const *fname) {
-    parlay::sequence<char> S = readStringFromFile(fname);
-    parlay::sequence<char*> W = stringToWords(S);
+    parlay::sequence<char> S = pargeo::IO::readStringFromFile(fname);
+    parlay::sequence<char*> W = pargeo::IO::stringToWords(S);
     int d = pointT::dim;
     if (W.size() == 0)
       throw std::runtime_error("readPointsFromFile empty file");

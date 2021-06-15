@@ -27,18 +27,13 @@
 #include <string>
 #include <string>
 #include <cstring>
+#include "pargeo/point.h"
 #include "parlay/primitives.h"
 #include "parlay/parallel.h"
 #include "parlay/io.h"
 
 namespace pargeo {
 namespace IO {
-
-  // todo don't use using
-  using namespace std;
-  using parlay::sequence;
-  using parlay::tabulate;
-  using parlay::make_slice;
 
   auto is_newline = [] (char c) {
     switch (c)  {
@@ -255,7 +250,7 @@ namespace IO {
     return writeSeqToFile(intHeaderIO, A, fileName);
   }
 
-  sequence<sequence<char>> get_tokens(char const *fileName) {
+  parlay::sequence<parlay::sequence<char>> get_tokens(char const *fileName) {
     // parlay::internal::timer t("get_tokens");
     // auto S = parlay::chars_from_file(fileName);
     auto S = parlay::file_map(fileName);

@@ -1,6 +1,6 @@
 project(uniformData)
 
-add_executable(${PROJECT_NAME} uniform.cpp)
+add_executable(${PROJECT_NAME} uniform.cpp generator.cpp)
 
 target_link_libraries(${PROJECT_NAME} pargeolib)
 
