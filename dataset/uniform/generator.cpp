@@ -8,10 +8,10 @@
 template<int dim>
 void uniformGenerator(size_t n, size_t shape, double thickness, char* fName) {
   if (thickness < 0) {
-    auto P = pargeo::uniformInPolyPoints<dim>(n, shape);
+    auto P = pargeo::uniformInPolyPoints<dim>(n, shape, sqrt(double(n)));
     pargeo::pointIO::writePointsToFile(P, fName);
   } else {
-    auto P = pargeo::uniformOnPolyPoints<dim>(n, shape, thickness);
+    auto P = pargeo::uniformOnPolyPoints<dim>(n, shape, thickness, double(n));
     pargeo::pointIO::writePointsToFile(P, fName);
   }
 }

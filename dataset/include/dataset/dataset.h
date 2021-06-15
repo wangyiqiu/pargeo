@@ -7,9 +7,9 @@
 namespace pargeo {
 
   template<int dim>
-  parlay::sequence<pargeo::point<dim>> uniformInPolyPoints(size_t n, size_t shape);
+  parlay::sequence<pargeo::point<dim>> uniformInPolyPoints(size_t n, size_t shape, double scale = 1.0);
 
   template<int dim>
-  parlay::sequence<pargeo::point<dim>> uniformOnPolyPoints(size_t n, size_t shape, double thickness);
+  parlay::sequence<pargeo::point<dim>> uniformOnPolyPoints(size_t n, size_t shape, double thickness, double scale = 1.0);
 
 }
