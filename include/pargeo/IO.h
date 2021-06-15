@@ -34,6 +34,7 @@
 namespace pargeo {
 namespace IO {
 
+  // todo don't use using
   using namespace std;
   using parlay::sequence;
   using parlay::tabulate;
@@ -139,6 +140,27 @@ namespace IO {
     xToString(s+l+1, a.second);
   }
 
+  template<int dim>
+  inline int xToStringLen(point<dim> a) {
+    int s = 0;
+    for (int i=0; i<dim; ++i) s += xToStringLen(a[i]);
+    return s+dim-1;
+  }
+
+  template<int dim>
+  inline void xToString(char* s, point<dim> a, bool comma=false) {
+    char* ss = s;
+    for (int i=0; i<dim; ++i) {
+      int li = xToStringLen(a[i]);
+      xToString(ss, a[i]);
+      if (i != dim-1) {
+	if(comma) ss[li] = ',';
+	else ss[li] = ' ';
+	ss += li+1;
+      }
+    }
+  }
+
   template <class Seq>
   parlay::sequence<char> seqToString(Seq const &A) {
     size_t n = A.size();
@@ -188,7 +210,7 @@ namespace IO {
       std::cout << "Unable to open file: " << fileName << std::endl;
       return 1;
     }
-    file << header << endl;
+    if (header.size() > 0) file << header << endl;
     writeSeqToStream(file, A);
     file.close();
     return 0;

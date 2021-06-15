@@ -26,7 +26,10 @@
 #include "IO.h"
 
 namespace pargeo {
-namespace pointIO {
+
+  namespace pointIO {
+
+  // todo don't use using
   using namespace std;
   using namespace pargeo::IO;
 
@@ -82,6 +85,12 @@ namespace pointIO {
 
   template <class pointT>
   int writePointsToFile(parlay::sequence<pointT> const &P, char const *fname) {
+    int r = writeSeqToFile("", P, fname);
+    return r;
+  }
+
+  template <class pointT>
+  int writePointsToFilePbbs(parlay::sequence<pointT> const &P, char const *fname) {
     string Header = pbbsHeader(pointT::dim);
     int r = writeSeqToFile(Header, P, fname);
     return r;
