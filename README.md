@@ -41,7 +41,7 @@ make -j # this will take a while
 
 ## Usage
 
-After the build completes, navigate to `<root>/build/executable`, where the executables are generated. Running `./<executable>` in the terminal displays short usage instructions. As an example, to compute the Euclidean MST of a point data set `<data-file>`, input the following, and the MST edges will be written to `edges.txt`.
+After the build completes, navigate to `<project-root>/build/executable`, where the executables are generated. Running `./<executable>` in the terminal displays short usage instructions. As an example, to compute the Euclidean MST of a point data set `<data-file>`, input the following, and the MST edges will be written to `edges.txt`.
 
 ```
 ./emst -o edges.txt <data-file>
