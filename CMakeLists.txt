@@ -7,6 +7,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 option(USE_PARALLEL "Parallel scheduler" ON)
 option(USE_WARNINGS "Warning flags" OFF)
+option(USE_PYBIND "Pybinding" OFF)
+option(USE_BENCHMARK "Benchmark" OFF)
+option(USE_TEST "Test" OFF)
 
 if (USE_WARNINGS)
   set(EXTRA_FLAGS "-Wall -Wextra")
@@ -36,13 +39,18 @@ add_subdirectory(src)
 
 add_subdirectory(executable)
 
-add_subdirectory(pybindings)
+if (USE_PYBIND)
+add_subdirectory(pybinding)
+endif()
 
+if (USE_BENCHMARK)
 add_subdirectory(benchmark)
+endif()
 
-enable_testing()
-
-add_subdirectory(test)
+if (USE_TEST)
+  enable_testing()
+  add_subdirectory(test)
+endif()
 
 # -------------------------------------------------
 # Expose pargeoLib
