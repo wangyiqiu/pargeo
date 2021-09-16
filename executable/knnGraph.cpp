@@ -16,6 +16,15 @@ using namespace pargeo::graphIO;
 template<int dim>
 void timeGraph(parlay::sequence<pargeo::point<dim>> &P, size_t k, char const *outFile) {
   timer t; t.start();
+
+  /* Add a small perturbation to the input to deal with duplicates */
+  parlay::parallel_for(0, P.size(), [&](size_t i) {
+    for (int j = 0; j < dim; ++ j) {
+      double myRand = P[i][j] / 1000000;
+      P[i][j] += - myRand + 2 * myRand * parlay::hash64(i) / ULONG_MAX;
+    }
+  });
+
   auto I = knnGraph<dim>(P, k);
   cout << "time = " << t.stop() << endl;
   if (outFile != NULL) graphIO::writeEdgeSeqToFile(I, outFile);
