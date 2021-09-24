@@ -40,6 +40,7 @@ add_subdirectory(src)
 add_subdirectory(executable)
 
 if (USE_PYBIND)
+add_subdirectory(external/pybind11)
 add_subdirectory(pybinding)
 endif()
 
