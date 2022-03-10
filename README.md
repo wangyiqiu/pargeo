@@ -1,3 +1,4 @@
+## ParGeo is now being maintained at https://github.com/ParAlg/ParGeo
 ## Pargeo: A Library for Parallal Algorithms in Computational Geometry
 
 Pargeo is being developted at MIT. It hosts a growing set of multi-core implementations for parallel algorithms in computational geometry:
